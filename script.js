@@ -15,7 +15,7 @@ const items = [
   { name: 'bee', image: 'bee.png' },
   { name: 'cat', image: 'cat.png' },
   { name: 'giraf', image: 'giraf.png' },
-  { name: 'hebi-sirokuro', image: 'hebi-sirokuro.png' },
+  { name: 'hebi-shirokuro', image: 'hebi-shirokuro.png' },
   { name: 'kujira', image: 'kujira.png' },
   { name: 'kuma', image: 'kuma.png' },
   { name: 'panda', image: 'panda.png' },
