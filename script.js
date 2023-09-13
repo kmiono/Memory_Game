@@ -9,27 +9,30 @@ let cards;
 let interval;
 let firstCard = false;
 let secondCard = false;
+
 //Items array
 const items = [
   { name: 'bee', image: 'bee.png' },
-  { name: 'crocodile', image: 'crocodile.png' },
-  { name: 'macaw', image: 'macaw.png' },
-  { name: 'gorilla', image: 'gorilla.png' },
-  { name: 'tiger', image: 'tiger.png' },
-  { name: 'monkey', image: 'monkey.png' },
-  { name: 'chameleon', image: 'chameleon.png' },
-  { name: 'piranha', image: 'piranha.png' },
-  { name: 'anaconda', image: 'anaconda.png' },
-  { name: 'sloth', image: 'sloth.png' },
-  { name: 'cockatoo', image: 'cockatoo.png' },
-  { name: 'toucan', image: 'toucan.png' },
+  { name: 'cat', image: 'cat.png' },
+  { name: 'azarasi', image: 'azarasi.png' },
+  { name: 'giraf', image: 'giraf.png' },
+  { name: 'hebi-shirokuro', image: 'hebi-shirokuro.png' },
+  { name: 'kujira', image: 'kujira.png' },
+  { name: 'kuma', image: 'kuma.png' },
+  { name: 'panda', image: 'panda.png' },
+  { name: 'penguin', image: 'penguin.png' },
+  { name: 'syakutorimusi', image: 'syakutorimusi.png' },
+  { name: 'taka', image: 'taka.png' },
+  { name: 'yagi', image: 'yagi.png' },
 ];
+
 //Initial Time
 let seconds = 0,
   minutes = 0;
 //Initial moves and win count
 let movesCount = 0,
   winCount = 0;
+
 //For timer
 const timeGenerator = () => {
   seconds += 1;
@@ -43,11 +46,13 @@ const timeGenerator = () => {
   let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
   timeValue.innerHTML = `<span>Time:</span>${minutesValue}:${secondsValue}`;
 };
+
 //For calculating moves
 const movesCounter = () => {
   movesCount += 1;
   moves.innerHTML = `<span>Moves:</span>${movesCount}`;
 };
+
 //Pick random objects from the items array
 const generateRandom = (size = 4) => {
   //temporary array
@@ -65,6 +70,7 @@ const generateRandom = (size = 4) => {
   }
   return cardValues;
 };
+
 const matrixGenerator = (cardValues, size = 4) => {
   gameContainer.innerHTML = '';
   cardValues = [...cardValues, ...cardValues];
@@ -81,12 +87,13 @@ const matrixGenerator = (cardValues, size = 4) => {
      <div class="card-container" data-card-value="${cardValues[i].name}">
         <div class="card-before">?</div>
         <div class="card-after">
-        <img src="${cardValues[i].image}" class="image"/></div>
+        <img src="${cardValues[i].image}" class="image" height="70" width="70"/></div>
      </div>
      `;
   }
   //Grid
   gameContainer.style.gridTemplateColumns = `repeat(${size},auto)`;
+
   //Cards
   cards = document.querySelectorAll('.card-container');
   cards.forEach((card) => {
@@ -138,7 +145,34 @@ const matrixGenerator = (cardValues, size = 4) => {
   });
 };
 
-// Initialized values and func calls
+//Start game
+startButton.addEventListener('click', () => {
+  movesCount = 0;
+  seconds = 0;
+  minutes = 0;
+  //controls amd buttons visibility
+  controls.classList.add('hide');
+  stopButton.classList.remove('hide');
+  startButton.classList.add('hide');
+  //Start timer
+  interval = setInterval(timeGenerator, 1000);
+  //initial moves
+  moves.innerHTML = `<span>Moves:</span> ${movesCount}`;
+  initializer();
+});
+
+//Stop game
+stopButton.addEventListener(
+  'click',
+  (stopGame = () => {
+    controls.classList.remove('hide');
+    stopButton.classList.add('hide');
+    startButton.classList.remove('hide');
+    clearInterval(interval);
+  })
+);
+
+//Initialize values and func calls
 const initializer = () => {
   result.innerText = '';
   winCount = 0;
@@ -146,5 +180,3 @@ const initializer = () => {
   console.log(cardValues);
   matrixGenerator(cardValues);
 };
-
-initializer();
